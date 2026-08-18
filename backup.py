@@ -2,7 +2,7 @@
 Backup Program
 Author: Dylan Breeze
 Email: your-email@example.com
-Version: 1.0
+Version: 1.2
 
 Description:
     Performs full backups of files and directories.
