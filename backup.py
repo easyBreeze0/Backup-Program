@@ -2,7 +2,7 @@
 Backup Program
 Author: Dylan Breeze
 Email: dylan.breeze@outlook.com
-Version: 1.5
+Version: 1.6
 
 Description:
     Performs full backups of files and directories.
@@ -16,6 +16,7 @@ import pathlib
 import shutil
 import sys
 from datetime import datetime
+import smtplib
 
 import backupcfg
 
@@ -104,6 +105,7 @@ def copy_files(source_path, destination_path, job_name="unknown"):
         success_message = "Backup completed successfully."
         print(success_message)
         write_log(job_name, "SUCCESS")
+        send_email(f"Backup job '{job_name}' completed successfully.")
 
     # Handle errors that occur while copying the source.
     except Exception:
@@ -116,6 +118,7 @@ def report_error(job_name, error_message):
 
     print(f"ERROR: {error_message}")
     write_log(job_name, "ERROR", error_message)
+    send_email(f"Backup job '{job_name}' failed with error: {error_message}")
 
 
 def write_log(job_name, status, error_message=""):
@@ -135,9 +138,32 @@ def write_log(job_name, status, error_message=""):
             log_file.write(log_entry + "\n")
 
     # Handle errors that occur while writing to the log file.
-    except:
-        print("An error occurred while writing to the log file.")
+    except Exception as e:
+        print(f"An error occurred while writing to the log file: {e}")
 
+
+def send_email(message):
+    """Send an email notification with the specified message."""
+
+    smtp = {"sender":    "hexypup@gmail.com",
+    "recipient": "30026674@students.sunitafe.edu.au",
+    "server":    "smtp.elasticemail.com",
+    "port":      2525,
+    "user":      "hexypup@gmail.com",
+    "password":  "D4CA465B984C46A44F44297574BAB4C2BF1A"}
+
+    email = 'To: ' + smtp["recipient"] + '\n' + 'From: ' + smtp["sender"] + '\n' + 'Subject: Backup Error\n\n' + message + '\n'
+    
+    try:
+        with smtplib.SMTP(smtp["server"], smtp["port"], timeout=10) as smtp_server:
+            smtp_server.ehlo()
+            smtp_server.starttls()
+            smtp_server.ehlo()
+            smtp_server.login(smtp["user"], smtp["password"])
+            smtp_server.sendmail(smtp["sender"], smtp["recipient"], email)
+            print("Email notification sent successfully.")
+    except Exception as e:
+        print(f"ERROR: Email notification failed: {e}")
 
 # Run the main function when the program is executed directly.
 if __name__ == "__main__":
