@@ -2,7 +2,7 @@
 Backup Program
 Author: Dylan Breeze
 Email: dylan.breeze@outlook.com
-Version: 1.6
+Version: 1.6.1
 
 Description:
     Performs full backups of files and directories.
@@ -116,7 +116,10 @@ def copy_files(source_path, destination_path, job_name="unknown"):
 def report_error(job_name, error_message):
     """Print an error message and write it to the log."""
 
+    # Print the error message to the console.
     print(f"ERROR: {error_message}")
+
+    # Write the error to the log file and send an email notification.
     write_log(job_name, "ERROR", error_message)
     send_email(f"Backup job '{job_name}' failed with error: {error_message}")
 
@@ -145,6 +148,7 @@ def write_log(job_name, status, error_message=""):
 def send_email(message):
     """Send an email notification with the specified message."""
 
+    # Store the email server and account details.
     smtp = {"sender":    "hexypup@gmail.com",
     "recipient": "30026674@students.sunitafe.edu.au",
     "server":    "smtp.elasticemail.com",
@@ -152,9 +156,11 @@ def send_email(message):
     "user":      "hexypup@gmail.com",
     "password":  "D4CA465B984C46A44F44297574BAB4C2BF1A"}
 
+    # Create the email message with the recipient, sender, subject, and body.
     email = 'To: ' + smtp["recipient"] + '\n' + 'From: ' + smtp["sender"] + '\n' + 'Subject: Backup Error\n\n' + message + '\n'
     
     try:
+        # Connect to the email server and send the notification.
         with smtplib.SMTP(smtp["server"], smtp["port"], timeout=10) as smtp_server:
             smtp_server.ehlo()
             smtp_server.starttls()
@@ -162,6 +168,8 @@ def send_email(message):
             smtp_server.login(smtp["user"], smtp["password"])
             smtp_server.sendmail(smtp["sender"], smtp["recipient"], email)
             print("Email notification sent successfully.")
+
+    # Handle errors that occur while sending the email notification.
     except Exception as e:
         print(f"ERROR: Email notification failed: {e}")
 
