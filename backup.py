@@ -21,37 +21,6 @@ import smtplib
 import backupcfg
 
 
-def main():
-    """Load the selected backup job and start the backup process."""
-
-    # Get the backup job name provided as a command-line argument.
-    try:
-        job_name = sys.argv[1]
-    except IndexError:
-        error_message = "No job name provided."
-        report_error("unknown", error_message)
-        return
-
-    # Get the source and destination paths for the selected backup job.
-    try:
-        source_path = backupcfg.backup_jobs[job_name]["source"]
-        destination_path = backupcfg.backup_jobs[job_name]["destination"]
-    except KeyError:
-        error_message = f"Job '{job_name}' not found in backup configuration."
-        report_error(job_name, error_message)
-        return
-
-    # Check that both the source and destination paths exist before
-    # attempting to perform the backup.
-    if check_path_exists(source_path, job_name) and check_path_exists(
-        destination_path, job_name
-    ):
-        copy_files(source_path, destination_path, job_name)
-    else:
-        error_message = "Source or destination path does not exist."
-        report_error(job_name, error_message)
-
-
 def check_path_exists(path, job_name="unknown"):
     """Check whether the specified path exists."""
 
@@ -120,7 +89,7 @@ def report_error(job_name, error_message):
     print(f"ERROR: {error_message}")
 
     # Write the error to the log file and send an email notification.
-    write_log(job_name, "ERROR", error_message)
+    write_log(job_name, "FAIL", error_message)
     send_email(f"Backup job '{job_name}' failed with error: {error_message}")
 
 
@@ -172,6 +141,37 @@ def send_email(message):
     # Handle errors that occur while sending the email notification.
     except Exception as e:
         print(f"ERROR: Email notification failed: {e}")
+
+
+def main():
+    """Load the selected backup job and start the backup process."""
+
+    # Check that at least one backup job was provided.
+    if len(sys.argv) < 2:
+        error_message = "No job name provided."
+        report_error("unknown", error_message)
+        return
+
+    # Process each backup job provided on the command line.
+    for job_name in sys.argv[1:]:
+        # Get the source and destination paths for the selected backup job.
+        try:
+            source_path = backupcfg.backup_jobs[job_name]["source"]
+            destination_path = backupcfg.backup_jobs[job_name]["destination"]
+        except KeyError:
+            error_message = f"Job '{job_name}' not found in backup configuration."
+            report_error(job_name, error_message)
+            continue
+
+        # Check that both the source and destination paths exist before
+        # attempting to perform the backup.
+        if check_path_exists(source_path, job_name) and check_path_exists(
+            destination_path, job_name
+        ):
+            copy_files(source_path, destination_path, job_name)
+        else:
+            error_message = "Source or destination path does not exist."
+            report_error(job_name, error_message)
 
 # Run the main function when the program is executed directly.
 if __name__ == "__main__":
