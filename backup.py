@@ -140,6 +140,7 @@ def send_email(message):
 
     # Handle errors that occur while sending the email notification.
     except Exception as e:
+        write_log("unknown", "EMAIL_FAIL", str(e))
         print(f"ERROR: Email notification failed: {e}")
 
 

@@ -14,9 +14,3 @@
 2026-08-25 11:28:23 - Job: new_job - Status: SUCCESS
 2026-08-25 11:50:39 - Job: new_job - Status: SUCCESS
 2026-08-25 11:50:44 - Job: test - Status: SUCCESS
-2026-09-07 04:08:44 - Job: test - Status: SUCCESS
-2026-09-07 04:09:16 - Job: new - Status: FAIL - Error: Job 'new' not found in backup configuration.
-2026-09-07 04:10:43 - Job: new_job - Status: SUCCESS
-2026-09-07 04:11:00 - Job: new_job - Status: SUCCESS
-2026-09-07 04:11:04 - Job: test - Status: SUCCESS
-2026-09-08 01:09:47 - Job: tes - Status: FAIL - Error: Job 'tes' not found in backup configuration.
