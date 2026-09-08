@@ -1,16 +1,13 @@
-2026-08-22 16:27:27 - Job: test - Status: SUCCESS
-2026-08-22 16:29:37 - Job: tes - Status: ERROR - Error: Job 'tes' not found in backup configuration.
-2026-08-23 21:26:15 - Job: jof - Status: ERROR - Error: Job 'jof' not found in backup configuration.
-2026-08-23 21:27:01 - Job: test - Status: SUCCESS
-2026-08-23 21:35:24 - Job: test - Status: SUCCESS
-2026-08-23 21:35:52 - Job: test - Status: SUCCESS
-2026-08-23 21:36:16 - Job: test - Status: SUCCESS
-2026-08-23 21:40:13 - Job: test - Status: SUCCESS
-2026-08-23 21:40:27 - Job: tesrt - Status: ERROR - Error: Job 'tesrt' not found in backup configuration.
-2026-08-23 21:44:20 - Job: test - Status: SUCCESS
-2026-08-25 11:25:26 - Job: new_job - Status: SUCCESS
-2026-08-25 11:26:45 - Job: test - Status: SUCCESS
-2026-08-25 11:28:09 - Job: test - Status: SUCCESS
-2026-08-25 11:28:23 - Job: new_job - Status: SUCCESS
-2026-08-25 11:50:39 - Job: new_job - Status: SUCCESS
-2026-08-25 11:50:44 - Job: test - Status: SUCCESS
+2026-09-01 23:11:14 - Job: forced_failure - Status: FAIL - Error: An error occurred while copying files.
+2026-09-05 00:04:43 - Job: unknown - Status: FAIL - Error: No job name provided.
+2026-09-05 00:05:42 - Job: test - Status: SUCCESS
+2026-09-05 00:15:19 - Job: unknown - Status: FAIL - Error: No job name provided.
+2026-09-05 00:20:14 - Job: test - Status: SUCCESS
+2026-09-05 00:21:06 - Job: test - Status: SUCCESS
+2026-09-05 00:21:10 - Job: new_nob - Status: FAIL - Error: Job 'new_nob' not found in backup configuration.
+2026-09-05 00:21:49 - Job: test - Status: SUCCESS
+2026-09-05 00:21:54 - Job: new_job - Status: SUCCESS
+2026-09-05 21:43:16 - Job: unknown - Status: FAIL - Error: No job name provided.
+2026-09-05 21:43:23 - Job: test - Status: SUCCESS
+2026-09-05 21:43:38 - Job: test - Status: SUCCESS
+2026-09-05 21:43:43 - Job: new_job - Status: SUCCESS
